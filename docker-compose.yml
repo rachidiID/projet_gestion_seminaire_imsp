@@ -1,0 +1,100 @@
+version: '3.8' # Spécifie la version de docker-compose
+
+services:
+  # Service Applicatif (Laravel/PHP)
+  app:
+    build:
+      context: . # Chemin vers le contexte de build (où se trouve votre Dockerfile PHP)
+      dockerfile: docker/php/Dockerfile # Chemin vers votre Dockerfile pour PHP
+    container_name: laravel_app
+    restart: unless-stopped
+    working_dir: /var/www # Répertoire de travail dans le conteneur
+    volumes:
+      - ./:/var/www # Monte le répertoire actuel du projet dans /var/www du conteneur
+    ports:
+      # Port pour Vite HMR (si vous lancez `npm run dev` ou similaire)
+      # Assurez-vous que VITE_PORT est configuré dans le .env de Laravel si nécessaire
+      - "${VITE_PORT:-5173}:${VITE_PORT:-5173}"
+    depends_on:
+      - db # Dépend du service de base de données
+      - mailhog # Dépend du service MailHog pour les tests d'email
+    networks:
+      - laravel
+    # Les variables d'environnement pour Laravel lui-même sont gérées via son propre fichier .env dans /var/www
+
+  # Serveur Web Nginx
+  nginx:
+    image: nginx:1.25-alpine # Utiliser une version spécifique est une bonne pratique
+    container_name: nginx_server
+    restart: unless-stopped
+    ports:
+      # Port principal de l'application, accessible depuis votre machine hôte
+      - "${APP_PORT:-8000}:80"
+    volumes:
+      - ./:/var/www # Partage les fichiers du projet avec Nginx
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf # Monte votre configuration Nginx
+    depends_on:
+      - app # Dépend du service applicatif
+    networks:
+      - laravel
+
+  # Serveur de Base de Données MySQL
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root} # Mot de passe root de MySQL
+      MYSQL_DATABASE: ${DB_DATABASE:-seminar_db} # Nom de la base de données
+      MYSQL_USER: ${DB_USERNAME:-laravel} # Utilisateur pour l'application Laravel
+      MYSQL_PASSWORD: ${DB_PASSWORD:-root} # Mot de passe pour l'utilisateur Laravel
+    volumes:
+      - db_data:/var/lib/mysql # Volume nommé pour la persistance des données MySQL
+    ports:
+      # Port MySQL accessible depuis votre machine hôte (pour des outils comme TablePlus, DBeaver, etc.)
+      - "${DB_PORT:-3306}:3306"
+    networks:
+      - laravel
+    healthcheck: # Vérification optionnelle de l'état de santé de la base de données
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u${DB_USERNAME:-laravel}", "-p${DB_PASSWORD:-root}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s # Laisse du temps à MySQL pour démarrer avant les premiers checks
+
+  # Service phpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin_server # Nom de conteneur cohérent
+    restart: always # 'always' est courant pour un outil de développement
+    ports:
+      # Port pour accéder à phpMyAdmin depuis votre navigateur
+      - "${PMA_PORT:-8081}:80"
+    environment:
+      PMA_HOST: db # Se connecte au service 'db' (notre MySQL)
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root} # Mot de passe root pour que phpMyAdmin puisse se connecter
+    depends_on:
+      db: # Attend que le service 'db' soit sain avant de démarrer
+        condition: service_healthy
+    networks:
+      - laravel
+
+  # Service MailHog (pour tester les emails localement)
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: mailhog_server
+    restart: unless-stopped
+    ports:
+      - "${MAILHOG_SMTP_PORT:-1025}:1025" # Port SMTP que Laravel utilisera
+      - "${MAILHOG_UI_PORT:-8025}:8025"   # Interface web de MailHog pour voir les emails
+    networks:
+      - laravel
+
+# Définition du réseau personnalisé
+networks:
+  laravel:
+    driver: bridge
+
+# Définition du volume nommé pour la persistance des données MySQL
+volumes:
+  db_data:
