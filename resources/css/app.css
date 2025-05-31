@@ -1,3 +1,77 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Styles personnalisés */
+body {
+  @apply bg-sky-300 font-serif text-sm;
+  font-family: Garamond, serif; /* Force Garamond */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-container {
+  @apply max-w-xl mx-auto my-10 bg-white rounded-2xl shadow-lg p-8;
+}
+
+
+.page-container {
+  @apply max-w-xl mx-auto my-10 bg-white rounded-2xl shadow-lg p-8;
+  transition: box-shadow 0.3s;
+}
+
+.page-container:hover {
+  box-shadow: 0 8px 32px 0 rgba(14, 165, 233, 0.15);
+}
+
+button, .btn, [type="submit"] {
+  @apply bg-bleu-ciel text-white px-4 py-2 rounded-lg shadow hover:bg-bleu-ciel-fonce transition;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 640px) {
+  .page-container {
+    @apply p-4 rounded-lg;
+    max-width: 98vw;
+  }
+}
+
+.password-container {
+            position: relative;
+        }
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #64748b;
+        }
+        .password-strength {
+            height: 4px;
+            margin-top: 8px;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        .password-requirements {
+            margin-top: 8px;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+        .requirement {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+        .requirement i {
+            margin-right: 6px;
+            font-size: 0.75rem;
+        }
+        .valid {
+            color: #10b981;
+        }
+        .invalid {
+            color: #ef4444;
+        }

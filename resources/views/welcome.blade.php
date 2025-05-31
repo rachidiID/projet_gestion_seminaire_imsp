@@ -68,17 +68,17 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col items-center p-4 sm:p-8">
+<body>
 
-    <header class="w-full max-w-4xl mb-8 flex justify-between items-center">
-        <div class="flex items-center">
+    <header>
+        <div class="page-container">
             <i class="fas fa-microphone-alt text-sky-blue-500 text-2xl mr-3"></i>
             <h1 class="text-xl font-bold text-sky-blue-600">
                 {{ config('app.name', 'Gestion Séminaire IMSP') }}
             </h1>
         </div>
         
-        <nav class="flex space-x-3">
+        <nav class="page-container">
             @if (Route::has('login'))
                 <a href="{{ route('login') }}"
                    class="px-4 py-2 bg-sky-blue-500 text-white rounded-lg hover:bg-sky-blue-600 transition text-sm sm:text-base">

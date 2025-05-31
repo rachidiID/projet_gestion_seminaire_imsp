@@ -30,8 +30,9 @@
             */
         </style>
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900 flex">
+    <body>
+        <div class="page-container">
+            {{ $slot ?? $content ?? '' }}
             {{-- Barre Latérale (Sidebar) --}}
             {{-- Assurez-vous que votre couleur 'bleu-ciel' est bien définie dans tailwind.config.js --}}
             <aside class="w-64 bg-bleu-ciel text-white flex flex-col sidebar-scroll overflow-y-auto">
@@ -41,15 +42,15 @@
 
             <div class="flex-1 flex flex-col overflow-hidden">
                 @isset($header)
-                    <header class="bg-white dark:bg-gray-800 shadow">
-                        <div class="max-w-full mx-auto py-4 px-4 sm:px-6 lg:px-8">
+                    <header >
+                        <div >
                             {{ $header }}
                         </div>
                     </header>
                 @endisset
 
-                <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 dark:bg-gray-850">
-                    <div class="container mx-auto px-6 py-8">
+                <main>
+                    <div>
                         {{-- Affichage des messages Flash --}}
                         @if (session('success'))
                             <div class="mb-4 p-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">

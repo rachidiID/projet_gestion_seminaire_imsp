@@ -28,11 +28,11 @@
         }
     </script>
 </head>
-<body class="bg-gray-50 min-h-screen">
+<body>
     <!-- En-tête -->
-    <header class="bg-white shadow">
-        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-            <div class="flex items-center">
+    <header>
+        <div class="page-container">
+                <div class="flex items-center">
                 <i class="fas fa-microphone-alt text-sky-blue-500 text-2xl mr-3"></i>
                 <h1 class="text-xl font-bold text-sky-blue-600">
                     Gestion Séminaire IMSP
@@ -47,7 +47,7 @@
 
     <!-- Contenu principal -->
     <main>
-        <div class="py-8">
+        <div class="page-container">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div class="bg-gradient-to-r from-sky-blue-400 to-sky-blue-600 p-6 text-white">

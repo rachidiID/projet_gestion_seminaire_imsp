@@ -9,7 +9,7 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script>
         tailwind.config = {
             theme: {
@@ -30,8 +30,9 @@
         }
     </script>
 </head>
-<body class="bg-gray-50 min-h-screen">
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
+<body>
+    <div class="page-container">
+        {{ $slot ?? $content ?? '' }}
         <div class="text-center mb-8">
             <a href="/" class="flex items-center justify-center">
                 <i class="fas fa-microphone-alt text-sky-blue-500 text-3xl mr-3"></i>

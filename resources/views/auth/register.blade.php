@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="w-full max-w-md mx-auto">
+    <div class="page-container">
         <div class="bg-white rounded-xl shadow-lg overflow-hidden">
             <!-- En-tête bleu -->
             <div class="bg-gradient-to-r from-sky-blue-400 to-sky-blue-600 p-6 text-white">

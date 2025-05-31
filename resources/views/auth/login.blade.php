@@ -28,7 +28,7 @@
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        <div class="block mt-4">
+        <div class="page-container">
             <label for="remember_me" class="inline-flex items-center">
                 {{-- Checkbox : couleur du check et du focus ring en bleu-ciel --}}
                 <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-bleu-ciel shadow-sm focus:ring-bleu-ciel dark:focus:ring-bleu-ciel dark:focus:ring-offset-gray-800" name="remember">

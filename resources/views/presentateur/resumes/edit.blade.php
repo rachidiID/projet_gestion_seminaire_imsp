@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="page-container">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl overflow-hidden">
                 <div class="bg-gradient-to-r from-sky-400 to-sky-600 p-6 text-white">
