@@ -32,7 +32,6 @@
 </head>
 <body>
     <div class="page-container">
-        {{ $slot ?? $content ?? '' }}
         <div class="text-center mb-8">
             <a href="/" class="flex items-center justify-center">
                 <i class="fas fa-microphone-alt text-sky-blue-500 text-3xl mr-3"></i>
