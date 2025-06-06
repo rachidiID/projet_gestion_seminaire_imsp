@@ -36,15 +36,12 @@
                         </a>
                     </li>
                     <li>
-                        <span class="text-gray-500">(Bientôt) Consulter les séminaires disponibles.</span>
-                    </li>
-                    <li>
-                        <span class="text-gray-500">(Bientôt) Télécharger des documents.</span>
-                    </li>
-                    <li>
                         <a href="{{ route('seminaires.disponibles') }}" class="text-bleu-ciel hover:underline font-medium">
                             Consulter les séminaires disponibles
                         </a>
+                    </li>
+                    <li>
+                        <span class="text-gray-500">(Bientôt) Télécharger des documents.</span>
                     </li>
                 </ul>
             </div>
